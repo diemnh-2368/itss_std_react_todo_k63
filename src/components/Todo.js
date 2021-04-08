@@ -58,6 +58,7 @@ function Todo() {
       />
       
       {displayItems.map(item => (
+
         <TodoItem 
           key = {item.key}
           item = {item}
