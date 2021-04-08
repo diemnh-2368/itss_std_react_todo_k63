@@ -9,7 +9,7 @@ function Input( { onAdd } ) {
 
   const handleChange = e => setText(e.target.value);
 
-  const handleKeyDown = e => {
+  const handleKeyDown = e => {   //for keyboard Enter
     if (e.keyCode === 13) {
       onAdd(text);
       setText('');
