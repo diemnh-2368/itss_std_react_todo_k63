@@ -26,23 +26,16 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
-  
-  const [todo, setTodo] = useState();
-  
-  function onAddToDo(e){
-    if(e.key == "Enter"){
-      putItems(arr => [...arr, {
-        key: todo.key,
-        text: todo.text
-      }])
-      console.log(items);
-    }
-  }
-  
-  function handleOnChange(event){
-    setTodo({key: getKey(), text: event.target.value});
-    console.log(event.target.value);
-  }
+
+  const handleCheck = checked => {
+    const newItems = items.map(item => {
+      if (item.key === checked.key) {
+        item.done = !item.done;
+      }
+      return item;
+    });
+    putItems(newItems);
+  };
 
   return (
     <div className="panel">
@@ -60,6 +53,7 @@ function Todo() {
         <TodoItem 
           key = {item.key}
           item = {item}
+          onCheck={handleCheck}
         />
       ))}
       <div className="panel-block">
