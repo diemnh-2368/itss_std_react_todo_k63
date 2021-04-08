@@ -26,7 +26,7 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
-  
+
   const handleCheck = checked => {
     const newItems = items.map(item => {
       if (item.key === checked.key) {
@@ -47,6 +47,7 @@ function Todo() {
         ITSS ToDoアプリ
       </div>
       <Input onAdd={handleAdd} />
+
       {items.map(item => (
         <TodoItem 
           key = {item.key}
