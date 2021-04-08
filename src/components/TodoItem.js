@@ -12,7 +12,7 @@ function TodoItem({item}  ) {
   }
    console.log(state);
   return (
-   
+    
     <label className= {state ? "panel-block has-text-grey-light" : "panel-block"}>
     <input type = "checkbox" onClick={() => getClickBox()} />
     {item.text}
