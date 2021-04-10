@@ -27,16 +27,34 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const handleCheck = checked => {
+    const newItems = items.map(item => {
+      if (item.key === checked.key) {
+        item.done = !item.done;
+      }
+      return item;
+    });
+    putItems(newItems);
+  };
+
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
+      <input 
+        className="input" 
+        type="text" 
+        placeholder="Enter new to do..."
+        onChange={handleOnChange}
+        onKeyDown={onAddToDo}
+      />
       {items.map(item => (
-        <label className="panel-block">
-            <input type="checkbox" />
-            {item.text}
-        </label>
+        <TodoItem 
+          key = {item.key}
+          item = {item}
+          onCheck={handleCheck}
+        />
       ))}
       <div className="panel-block">
         {items.length} items
