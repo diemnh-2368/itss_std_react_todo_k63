@@ -27,11 +27,23 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const handleOnEnterInput = (newItem) => {
+    putItems([
+      ...items,
+      {
+        key: getKey(),
+        text: newItem,
+        done: false,
+      },
+    ])
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
+      <Input onEnterInput={handleOnEnterInput} />
       {items.map(item => (
         <TodoItem 
           key = {item.key}
