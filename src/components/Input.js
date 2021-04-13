@@ -18,7 +18,7 @@ function Input( { onAdd } ) {
   return (
     <div className="panel-block">
     <input class='input' type="text"
-        placeholder="Enter to add"
+         placeholder="Todoを入力してください"
         value={text}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
