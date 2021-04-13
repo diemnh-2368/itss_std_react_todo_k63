@@ -47,6 +47,13 @@ const onChange = (e) => {
       <label>
         <input className="input" type="text" onKeyDown={(e) => onChange(e)}></input>
       </label>
+      <div className="is-active menu">
+      <ul className="nav nav-tabs">
+        <li className="active"><a data-toggle="tab" href="#all">すべて</a></li>
+        <li><a data-toggle="tab" href="#chuahoanthanh">未完了</a></li>
+        <li><a data-toggle="tab" href="#hoanthanh">完了済み</a></li>
+      </ul>
+      </div>
       {items.map(item => (
       <TodoItem
       key={item.key}
