@@ -18,7 +18,16 @@ import useStorage from '../hooks/storage';
 /* ライブラリ */
 import {getKey} from "../lib/util";
 
+function AddnewTodo(text) {
+  console.log(text)
+}
+
 function Todo() {
+	
+	const [state, setState] = React.useState({
+    value: ''
+  })
+  
   const [items, putItems] = React.useState([
       /* テストコード 開始 */
     { key: getKey(), text: '日本語の宿題', done: false },
@@ -27,11 +36,23 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+function handleSubmit(event) {
+    putItems(items.concat({key: getKey(), text: state.value, done: false}));
+    event.preventDefault();
+  }
+
+  function handleChange(event) {
+    setState({value: event.target.value})
+  }
+  
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
+      <form onSubmit={handleSubmit}>
+      <input onChange={handleChange} placeholder="Todoを入力してください"  class="input" type="text"/>
+      </form>
       {items.map(item => (
         <TodoItem
           key = {item.key}

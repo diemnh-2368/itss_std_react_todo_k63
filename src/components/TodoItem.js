@@ -12,12 +12,11 @@ function TodoItem({item}  ) {
 
   function toggleCheck() {
     setState({isChecked: !state.isChecked});
-    console.log(state.isChecked);
   }
 
   return (
     <label className="panel-block" >
-      <input type="checkbox" onChange = {toggleCheck} />
+      <input type="checkbox" onClick = {toggleCheck} />
       <div className={state.isChecked ? "has-text-grey-light" : ""}>{item.text}</div>
     </label>
   );
