@@ -5,21 +5,15 @@ import React, { useState } from 'react';
 　・チェックボックスにチェックが入っているか管理する
 　・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
-function TodoItem( {item}  ) {
-  const changeColor = () => {
-    if (item.done == false) {
-      item.done = true;
-      var changeElement = document.getElementById(item.key);
-      changeElement.style.color = "lightgrey";
-    } else {
-      item.done = false;
-      var changeElement = document.getElementById(item.key);
-     changeElement.style.color = "black";
-    }
-  }
+function TodoItem( {item, onItemClick}  ) {
+  const classNameAdded = item.done ? "panel-block has-text-grey-light" : "panel-block";
   return (
-   <label className="panel-block" id={item.key}>
-      <input type="checkbox" onClick={changeColor} />
+   <label className={classNameAdded} >
+      <input 
+        type="checkbox" 
+        onClick = { () => onItemClick(item)}
+        defaultChecked = {item.done? true:false}
+      />
       {item.text}
     </label>
   );

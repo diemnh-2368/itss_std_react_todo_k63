@@ -56,6 +56,21 @@ function Todo() {
     }
   }
 
+  const handleOnItemClick = (newItem) => {
+    let changeItems = [];
+
+    for (const item of items){
+        if (item.key == newItem.key){
+          newItem.done = !newItem.done;
+          changeItems.push(newItem);
+        } else {
+          changeItems.push(item);
+        }   
+    }
+    putItems(changeItems);
+    console.log(changeItems);
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
@@ -66,11 +81,12 @@ function Todo() {
       {filterItems.map(item => (
         <TodoItem 
           key={item.key}
-          item={item} 
+          item={item}
+          onItemClick={ () => handleOnItemClick(item)} 
         />
       ))}
       <div className="panel-block">
-        {items.length} items
+        {filterItems.length} items
       </div>
     </div>
   );
