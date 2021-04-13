@@ -1,25 +1,24 @@
-import {useState} from 'react';
 /* 
   【TodoItemコンポーネント】
 　・Todoアイテムを表示する
 　・チェックボックスにチェックが入っているか管理する
 　・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
-function TodoItem({item}  ) {
-    const [state, setState] = useState({
-    isChecked: false
-  })
+function TodoItem({item, onCheck }  ) {
+function handleClick() {
+        onCheck(item);
+    }
 
-  function toggleCheck() {
-    setState({isChecked: !state.isChecked});
-  }
-
-  return (
-    <label className="panel-block" >
-      <input type="checkbox" onClick = {toggleCheck} />
-      <div className={state.isChecked ? "has-text-grey-light" : ""}>{item.text}</div>
-    </label>
-  );
+    return (
+        <label className="panel-block">
+            <input
+                type="checkbox"
+                defaultChecked={item.done}
+                onClick={handleClick}
+            />
+            <div className={item.done ? "has-text-grey-light" : ""}>{item.text}</div>
+        </label>
+    );
 }
 
 export default TodoItem;
