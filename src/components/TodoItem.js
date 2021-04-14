@@ -5,16 +5,17 @@
 　・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
 import React from 'react';
-function TodoItem({item}  ) {
+function TodoItem({item, onClickBox}  ) {
   const [state,setState] =React.useState(false);
-  const getClickBox = () => {
+  const onclick = (key) => {
     setState(!state);
+    onClickBox(key);
   }
    console.log(state);
   return (
     
     <label className= {state ? "panel-block has-text-grey-light" : "panel-block"}>
-    <input type = "checkbox" onClick={() => getClickBox()} />
+   <input type="checkbox" onClick={() => onclick(item.key)}/>
     {item.text}
     </label>
   );
