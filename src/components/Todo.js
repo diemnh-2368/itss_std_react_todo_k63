@@ -22,6 +22,7 @@ function Todo() {
   const [items, putItems, clearItems] = useStorage([]);
   
   const [tab,setTab] = useState("すべて");
+  
   const itemTab = () => {
       const tabItem = items.filter((item) => {
           if (tab === "すべて")
@@ -39,13 +40,15 @@ function Todo() {
       setTab(target);
   };
 const onChange = (e) => {
-  if(e.key === 'Enter'){
+  if(e.key === 'Enter' && e.target.value){
     const newItem =  {
       key: getKey(),
       text: e.target.value,
       done: false
     }
+    
     items.push(newItem);
+    
     putItems([...items]);
   }
 }
@@ -82,6 +85,7 @@ const onClickBox = (key) => {
         {itemTab().length} items
       </div>
       <div className="panel-block">
+        <button className="btn btn-primary" onClick={clearItems} >CLEAR</button>
       </div>
     </div>
     );

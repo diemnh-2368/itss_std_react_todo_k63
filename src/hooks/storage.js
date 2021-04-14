@@ -21,12 +21,10 @@ function useStorage() {
   }, []);
 
   const putItems = items => {
-    let todos = [...items];
-    todos.push(items);
     
-    setItems([...todos]);
+    setItems([...items]);
     
-    localStorage.setItem('items', JSON.stringify(todos));
+    localStorage.setItem('items', JSON.stringify(items));
   };
 
   const clearItems = () => {
