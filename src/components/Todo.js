@@ -13,7 +13,8 @@ import Input from './Input';
 import Filter from './Filter';
 
 /* カスタムフック */
-import useStorage from '../hooks/storage';
+// import useStorage from '../hooks/storage';
+import useFireStore from '../hooks/firestore';
 
 /* ライブラリ */
 import {getKey} from "../lib/util";
@@ -21,27 +22,21 @@ import {getKey} from "../lib/util";
 function Todo() {
 
   const [filterItems, setFilterItems] = useState([]);
-  const [items, putItems] = React.useState([
-      /* テストコード 開始 */
-    { key: getKey(), text: '日本語の宿題', done: false },
-    { key: getKey(), text: 'reactを勉強する', done: false },
-    { key: getKey(), text: '明日の準備をする', done: false },
-    /* テストコード 終了 */
-  ]);
+  const [items, addItem, updateItem, clearItems] = useFireStore();
+  // const [items, putItems] = React.useState([
+  //     /* テストコード 開始 */
+  //   { key: getKey(), text: '日本語の宿題', done: false },
+  //   { key: getKey(), text: 'reactを勉強する', done: false },
+  //   { key: getKey(), text: '明日の準備をする', done: false },
+  //   /* テストコード 終了 */
+  // ]);
 
   useEffect(() => {
     setFilterItems(items);
   }, [items]);
 
-  const handleOnEnterInput = (newItem) => {
-    putItems([
-      ...items,
-      {
-        key: getKey(),
-        text: newItem,
-        done: false,
-      },
-    ])
+  const handleOnEnterInput = (text) => {
+    addItem({text, done: false});
   }
 
   const handleOnFilterClick = (element) => {
@@ -56,19 +51,16 @@ function Todo() {
     }
   }
 
-  const handleOnItemClick = (newItem) => {
-    let changeItems = [];
-
-    for (const item of items){
-        if (item.key == newItem.key){
-          newItem.done = !newItem.done;
-          changeItems.push(newItem);
-        } else {
-          changeItems.push(item);
-        }   
-    }
-    putItems(changeItems);
-    // console.log(changeItems);
+  const handleOnItemClick = (checked) => {
+    const newItems = items.map(item => {
+      if (item.key === checked.key) {
+        item.done = !item.done;
+      }
+      return item;
+    });
+    // putItems(newItems);
+    updateItem(checked);
+    
   }
 
   return (
@@ -80,7 +72,7 @@ function Todo() {
       <Filter onFilterClick={handleOnFilterClick}/>
       {filterItems.map(item => (
         <TodoItem 
-          key={item.key}
+          key={item.id}
           item={item}
           onItemClick={ () => handleOnItemClick(item)} 
         />
