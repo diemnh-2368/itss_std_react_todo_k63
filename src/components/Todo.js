@@ -68,7 +68,7 @@ function Todo() {
         }   
     }
     putItems(changeItems);
-    console.log(changeItems);
+    // console.log(changeItems);
   }
 
   return (
