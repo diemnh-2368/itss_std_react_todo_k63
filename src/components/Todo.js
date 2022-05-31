@@ -27,6 +27,15 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const onUppdate = (data) => {
+    const index = items.findIndex(item => item.key === data.key);
+    const new_arr = [...items];
+    if(index != -1){
+      new_arr[index].done = !data.done;
+      putItems([...new_arr]);
+    }
+  };
+
   return (
     <div className="panel">
       <div className="panel-heading">
@@ -36,6 +45,7 @@ function Todo() {
       <TodoItem
         key={item.key}
         item={item}
+        onClick={(data) => onUppdate(data)}
       />
       ))}
       <div className="panel-block">
