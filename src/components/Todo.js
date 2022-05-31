@@ -36,11 +36,25 @@ function Todo() {
     }
   };
 
+  const [content, setContent] = useState('');
+
+  const onSubmit = () => {
+    putItems([...items, { key: getKey(), text: content, done: false }]);
+    setContent('');
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
+      <input type='text'
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        onKeyUp={e => {
+          if(e.key === 'Enter')
+            onSubmit()
+        }}/>
       {items.map(item => (
       <TodoItem
         key={item.key}
