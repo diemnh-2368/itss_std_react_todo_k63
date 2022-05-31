@@ -26,15 +26,40 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
+  const [content, setContent] = useState('');
+
+  const onUpdate = (data) => {
+    const index = items.findIndex(item => item.key === data.key);
+    const new_arr = [...items];
+    if (index !== -1) {
+      new_arr[index].done = !data.done;
+      putItems([...new_arr]);
+    }
+  }
+
+  const onSubmit = () => {
+    putItems([...items, { key: getKey(), text: content, done: false }]);
+    setContent('');
+  }
 
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
+      <input
+        type='text'
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        onKeyUp={e => {
+          if (e.key === 'Enter')
+            onSubmit() 
+          }
+        }
+      />
       {items.map(item => (
-        <label className="panel-block">
-          <TodoItem key={item.key} item={item} />
+        <label key={item.key} className="panel-block">
+          <TodoItem item={item} onClick={(data) => onUpdate(data)} />
         </label>
       ))}
       <div className="panel-block">
