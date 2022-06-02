@@ -16,7 +16,6 @@ function TodoItem(props) {
   return (
     <label
       className={isActive ? "panel-block" : "panel-block has-text-grey-light"}
-      onClick={check}
     >
       <input type="checkbox" onChange={check}/>
       {props.text}

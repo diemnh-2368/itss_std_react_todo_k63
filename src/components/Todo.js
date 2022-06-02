@@ -16,6 +16,22 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const [inputValue, setInputValue] = React.useState("");
+
+  const handleKey = (e) => {
+    if (e.key === 'Enter') {
+      addItem();
+    }
+  }
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  }
+
+  const addItem = () => {
+    putItems([...items, { key: getKey(), text: inputValue, done: false }])
+  }
+
   return (
     <article class="panel is-primary">
       <p class="panel-heading">
@@ -28,9 +44,19 @@ function Todo() {
         <a>Sources</a>
         <a>Forks</a>
       </p>
+      <input
+        style={{marginTop: "1rem", width:"40%"}}
+        placeHolder="New item..."
+        className="input is-primary"
+        type="text"
+        onKeyDown={handleKey}
+        value={inputValue}
+        onChange={handleChange}
+      />
       {items.map(item => (
           <TodoItem text={item.text} />
       ))}
+      
     </article>
   );
 }
