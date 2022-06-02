@@ -16,6 +16,8 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const [active, setActive] = React.useState(1);
+
   const [inputValue, setInputValue] = React.useState("");
 
   const handleKey = (e) => {
@@ -28,6 +30,10 @@ function Todo() {
     setInputValue(e.target.value);
   }
 
+  const handleActive = (x) => {
+    setActive(x);
+  }
+
   const addItem = () => {
     putItems([...items, { key: getKey(), text: inputValue, done: false }])
   }
@@ -35,17 +41,40 @@ function Todo() {
   return (
     <article class="panel is-primary">
       <p class="panel-heading">
-        Primary
+        Todo App
       </p>
       <p class="panel-tabs">
-        <a class="is-active">All</a>
-        <a>Public</a>
-        <a>Private</a>
-        <a>Sources</a>
-        <a>Forks</a>
+        <a
+          class={active === 1 ? "is-active" : ""}
+          onClick={() => {
+            handleActive(1)}
+          }
+        >
+          全て
+        </a>
+        <a
+          class={active === 2 ? "is-active" : ""}
+          onClick={() => {
+            handleActive(2)}
+          }
+        >
+          未完了
+        </a>
+        <a
+          class={active === 3 ? "is-active" : ""}
+          onClick={() => {
+            handleActive(3)}
+          }
+        >
+          完了済み
+        </a>
       </p>
+
       <input
-        style={{marginTop: "1rem", width:"40%"}}
+        style={{
+          marginTop: "1rem",
+          width:"40%"
+        }}
         placeHolder="New item..."
         className="input is-primary"
         type="text"
@@ -53,10 +82,17 @@ function Todo() {
         value={inputValue}
         onChange={handleChange}
       />
-      {items.map(item => (
-          <TodoItem text={item.text} />
-      ))}
-      
+      {
+        items.map((item => (
+            active === 1 ||
+            (active === 2 && item.done) ||
+            (active === 3 && !(item.done)) 
+              ? 
+                <TodoItem items={items} item={item} putItems={putItems}/>
+              :
+                null
+          )))
+      }
     </article>
   );
 }
