@@ -1,21 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react'
 
-/* 
-  【Todoのデータ構成】
-　・key：Todoを特定するID（String）
-　・text：Todoの内容（String）
-　・done：完了状態（Boolean true:完了済み,, false:未完了）
-*/
+/* スタイルシート */
+import '../styles/main.css';
 
 /* コンポーネント */
 import TodoItem from './TodoItem';
-import Input from './Input';
-import Filter from './Filter';
-
-/* カスタムフック */
-import useStorage from '../hooks/storage';
-
-/* ライブラリ */
 import {getKey} from "../lib/util";
 
 function Todo() {
@@ -28,20 +17,21 @@ function Todo() {
   ]);
 
   return (
-    <div className="panel">
-      <div className="panel-heading">
-        ITSS ToDoアプリ
-      </div>
+    <article class="panel is-primary">
+      <p class="panel-heading">
+        Primary
+      </p>
+      <p class="panel-tabs">
+        <a class="is-active">All</a>
+        <a>Public</a>
+        <a>Private</a>
+        <a>Sources</a>
+        <a>Forks</a>
+      </p>
       {items.map(item => (
-        <label className="panel-block">
-            <input type="checkbox" />
-            {item.text}
-        </label>
+          <TodoItem text={item.text} />
       ))}
-      <div className="panel-block">
-        {items.length} items
-      </div>
-    </div>
+    </article>
   );
 }
 
