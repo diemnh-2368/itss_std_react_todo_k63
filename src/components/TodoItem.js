@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 /* 
   【TodoItemコンポーネント】
 　・Todoアイテムを表示する
@@ -5,10 +7,11 @@
 　・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
 function TodoItem(props) {
+  const [stateMode,setStateMode] = useState(false);
   return (
     <label className="panel-block">
-      <label className="panel-block">
-            <input type="checkbox" />
+      <label className={`panel-block ${stateMode?"has-text-grey-light":""}`}>
+            <input type="checkbox" onClick={e=>setStateMode(stateMode?false:true)}/>
             {props.item.text}
       </label>
     </label>
