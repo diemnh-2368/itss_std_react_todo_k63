@@ -27,13 +27,24 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const onChangeHandleAfterclick = (key) => {
+    const itemAfterHandle = items.map(e => {
+      if (e.key === key) {
+        e.done = !e.done
+      }
+      return e
+    })
+
+    putItems(itemAfterHandle)
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
       {items.map(item => (
-        <TodoItem item={item} />
+        <TodoItem item={item} onClick={onChangeHandleAfterclick} />
       ))}
       <div className="panel-block">
         {items.length} items
