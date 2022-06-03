@@ -27,6 +27,8 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const [newTodo, setNewTodo] = React.useState("")
+
   const onChangeHandleAfterclick = (key) => {
     const itemAfterHandle = items.map(e => {
       if (e.key === key) {
@@ -42,6 +44,16 @@ function Todo() {
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
+      </div>
+      <div>
+        <input class="input" type="text" onKeyDown={e => {
+          if (e.key === "Enter" && newTodo !== "") {
+            const valueNeedInsert = { key: getKey(), text: newTodo, done: false }
+            putItems([...items, valueNeedInsert])
+            setNewTodo("")
+          }
+        }} onChange={e => setNewTodo(e.target.value)} value={newTodo} />
+
       </div>
       {items.map(item => (
         <TodoItem item={item} onClick={onChangeHandleAfterclick} />
