@@ -32,11 +32,8 @@ function Todo() {
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
-      {items.map(item => (
-        <label className="panel-block">
-            <input type="checkbox" />
-            {item.text}
-        </label>
+      {items.map((item, index) => (
+        <TodoItem item={item} key={index} />
       ))}
       <div className="panel-block">
         {items.length} items
