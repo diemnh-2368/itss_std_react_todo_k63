@@ -34,9 +34,27 @@ function Todo() {
     putItems([...items])
   }
 
+  const [title, setTitle] = useState('')
+
+  const handleAddTodo = (e) => {
+    setTitle(e.target.value)
+    if (e.key === 'Enter') {
+      putItems([...items, { key: getKey(), text: title, done: false }])
+      setTitle('')
+    }
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">ITSS ToDoアプリ</div>
+      <input
+        type="text"
+        value={title}
+        placeholder="title"
+        className="input"
+        onChange={handleAddTodo}
+        onKeyDown={handleAddTodo}
+      />
       {items.map((item) => (
         <TodoItem item={item} key={item.key} handleStatus={handleStatus} />
       ))}
