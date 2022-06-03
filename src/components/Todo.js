@@ -17,6 +17,7 @@ import useStorage from '../hooks/storage';
 
 /* ライブラリ */
 import { getKey } from "../lib/util";
+import TabTodo from './TabTodo';
 
 function Todo() {
   const [items, putItems] = React.useState([
@@ -26,9 +27,27 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
+  const all = 1;
+  const notDone = 2;
+  const done = 3;
+  const [itemWithTab, setItemWithTab] = useState(items)
 
   const [newTodo, setNewTodo] = React.useState("")
 
+  const changeAfterClick = (keyInput) => {
+
+    const keyUsing = parseInt(keyInput)
+    if (keyUsing === all) {
+      console.log("🚀 ~ file: Todo.js ~ line 41 ~ changeAfterClick ~ keyUsing", keyUsing)
+      setItemWithTab(items)
+    }
+    if (keyUsing === done) {
+      setItemWithTab(items.filter(e => e.done))
+    }
+    if (keyUsing === notDone) {
+      setItemWithTab(items.filter(e => !e.done))
+    }
+  }
   const onChangeHandleAfterclick = (key) => {
     const itemAfterHandle = items.map(e => {
       if (e.key === key) {
@@ -39,7 +58,7 @@ function Todo() {
 
     putItems(itemAfterHandle)
   }
-
+  const listTab = [{ text: 'すべて', key: 1 }, { text: '未完了', key: 2 }, { text: '完了済み', key: 3 }]
   return (
     <div className="panel">
       <div className="panel-heading">
@@ -55,13 +74,22 @@ function Todo() {
         }} onChange={e => setNewTodo(e.target.value)} value={newTodo} />
 
       </div>
-      {items.map(item => (
-        <TodoItem item={item} onClick={onChangeHandleAfterclick} />
-      ))}
-      <div className="panel-block">
-        {items.length} items
+      <div style={{ display: "flex", justifyContent: 'center' }} class="panel-block">
+        <div class="columns is-centered panel-block">
+          {listTab.map(tabData => (
+            <TabTodo text={tabData.text} keyUsing={tabData.key} changeAfterClick={changeAfterClick} />
+          ))}
+        </div>
       </div>
-    </div>
+      {
+        itemWithTab.map(item => (
+          <TodoItem item={item} onClick={onChangeHandleAfterclick} />
+        ))
+      }
+      <div className="panel-block">
+        {itemWithTab.length} items
+      </div>
+    </div >
   );
 }
 
