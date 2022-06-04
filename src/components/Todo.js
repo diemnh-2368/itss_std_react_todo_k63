@@ -19,13 +19,14 @@ import useStorage from '../hooks/storage';
 import {getKey} from "../lib/util";
 
 function Todo() {
-  const [items, putItems] = React.useState([
-      /* テストコード 開始 */
-    { key: getKey(), text: '日本語の宿題', done: false },
-    { key: getKey(), text: 'reactを勉強する', done: true },
-    { key: getKey(), text: '明日の準備をする', done: false },
-    /* テストコード 終了 */
-  ]);
+  const [items, putItems, clearItems] = useStorage();
+  // const [items, putItems] = React.useState([
+  //     /* テストコード 開始 */
+  //   { key: getKey(), text: '日本語の宿題', done: false },
+  //   { key: getKey(), text: 'reactを勉強する', done: true },
+  //   { key: getKey(), text: '明日の準備をする', done: false },
+  //   /* テストコード 終了 */
+  // ]);
 
   const [displayItems, setDisplayItems] = useState(items)
   // 0: 全て, 1: 未完了, 2: 完了済み
@@ -67,6 +68,10 @@ function Todo() {
 
       <div className="panel-block">
         {displayItems.length} items
+      </div>
+
+      <div className='panel-block'>
+        <button className='button is-fullwidth' onClick={() => clearItems()}>全てのToDoを削除</button>
       </div>
     </div>
   );
