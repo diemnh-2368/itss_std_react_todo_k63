@@ -27,11 +27,17 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const newItem = (text) => {
+    putItems([...items, {key: getKey(), text, done: false}])
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
+
+      <Input data={items} setData={newItem} />
 
       {items.map(item => (
         <TodoItem key={item.key} item={item} data={items} setData={putItems} />
