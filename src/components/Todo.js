@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /* 
   【Todoのデータ構成】
@@ -27,9 +27,29 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
-  const newItem = (text) => {
-    putItems([...items, {key: getKey(), text, done: false}])
+  const [displayItems, setDisplayItems] = useState(items)
+  // 0: 全て, 1: 未完了, 2: 完了済み
+  const [optionFilter, setOptionFilter] = useState(0)
+
+  const addItem = (text) => {
+    let newItem = {key: getKey(), text, done: false}
+    putItems([...items, newItem])
   }
+
+  useEffect(() => {
+    let newDisplayItems = items.filter(x => {
+      if (optionFilter == 0) {
+        return true
+      }
+      if (optionFilter == 1) {
+        return !x.done
+      }
+
+      return x.done
+    })
+
+    setDisplayItems(newDisplayItems)
+  }, [items, optionFilter])
 
   return (
     <div className="panel">
@@ -37,14 +57,16 @@ function Todo() {
         ITSS ToDoアプリ
       </div>
 
-      <Input data={items} setData={newItem} />
+      <Input setData={(text) => addItem(text)} />
 
-      {items.map(item => (
+      <Filter option={optionFilter} setOption={setOptionFilter} />
+
+      {displayItems.map(item => (
         <TodoItem key={item.key} item={item} data={items} setData={putItems} />
       ))}
 
       <div className="panel-block">
-        {items.length} items
+        {displayItems.length} items
       </div>
     </div>
   );
