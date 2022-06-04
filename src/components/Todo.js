@@ -34,7 +34,7 @@ function Todo() {
       </div>
 
       {items.map(item => (
-        <TodoItem key={item.key} item={item} />
+        <TodoItem key={item.key} item={item} data={items} setData={putItems} />
       ))}
 
       <div className="panel-block">
