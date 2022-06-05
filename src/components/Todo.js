@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 /* 
   【Todoのデータ構成】
@@ -27,17 +27,66 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const onUpdate = (data) => {
+    const index = items.findIndex(item => item.key === data.key);
+    const new_arr = [...items];
+    if(index != -1){
+      new_arr[index].done = !data.done;
+      putItems([...new_arr]);
+    }
+  };
+
+  const [content, setContent] = useState('');
+  const [tabSelected, setTabSelected] = useState(0);
+
+  useEffect(() => {
+    
+  }, []);
+
+  const tabs = ['全て', '未完了', '完了済み'];
+
+  const onSubmit = () => {
+    putItems([...items, { key: getKey(), text: content, done: false }]);
+    setContent('');
+  }
+
+  const getLists = () => {
+    switch(tabSelected){
+      case 0: return items;
+      case 1: return items.filter(item => item.done);
+      case 2: return items.filter(item => !item.done);
+      default: return [];
+    }
+  }
+
+  //  const onRemove = () => {
+  //   clearItems();
+  // } 
+
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
-      {items.map(item => (
-        <label className="panel-block">
-            <input type="checkbox" />
-            {item.text}
+      <input type='text'
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        onKeyUp={e => {
+          if(e.key === 'Enter')
+            onSubmit()
+        }}/>
+      <div className='tabs'>
+        {
+          tabs.map((tab, index) => (<div className={`tab ${index === tabSelected ? 'active' : ''}`} key={index} onClick={() => setTabSelected(index)} >{tab}</div>))
+        }
+      </div>
+      
+      {getLists().map(item => (
+        <label key={item.key} className="panel-block">
+          <TodoItem item={item} onClick={(data) => onUpdate(data)} />
         </label>
       ))}
+
       <div className="panel-block">
         {items.length} items
       </div>
