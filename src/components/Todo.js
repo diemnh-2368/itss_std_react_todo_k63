@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 
 /* 
   【Todoのデータ構成】
@@ -18,16 +18,14 @@ import useStorage from '../hooks/storage';
 /* ライブラリ */
 import {getKey} from "../lib/util";
 
+
 function Todo() {
-  const [items, putItems] = React.useState([
-      /* テストコード 開始 */
-    { key: getKey(), text: '日本語の宿題', done: false },
-    { key: getKey(), text: 'reactを勉強する', done: false },
-    { key: getKey(), text: '明日の準備をする', done: false },
-    /* テストコード 終了 */
-  ]);
+  const [items,putItems,clearItems] = useStorage();
+  console.log(items)
 
   const [itemsfilter,setItemsfilter] = useState(items)
+  
+  const [check,setCheck] = useState("すべて")
 
   const handleDone = (key) =>{
     const newItems = items.map(item => {
@@ -45,15 +43,17 @@ function Todo() {
   }
 
 
+
   const filter = (check) =>{
     if(check === "すべて"){
-      setItemsfilter(items)
+      return items
     }else if(check === "未完了"){
-      setItemsfilter(items.filter(item => item.done === false))
+      return items.filter(item => item.done === false)
     }else if(check === "完了済み"){
-      setItemsfilter(items.filter(item => item.done === true))
+      return items.filter(item => item.done === true)
     }
   }
+
 
 
   return (
@@ -62,12 +62,17 @@ function Todo() {
         ITSS ToDoアプリ
       </div>
       <Input addTodo={addTodo}/>
-      <Filter filter={filter}/>
-      {itemsfilter.map(item => (
+      <Filter filter={setCheck}/>
+      {filter(check).map(item => (
         <TodoItem item={item} handleDone={handleDone}/>
       ))}
       <div className="panel-block">
-        {itemsfilter.length} items
+        {filter(check).length} items
+      </div>
+      <div className="panel-block">
+        <button className="button is-light is-fullwidth" onClick={clearItems}>
+          全てのToDoを削除
+        </button>
       </div>
     </div>
   );

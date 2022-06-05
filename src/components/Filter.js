@@ -29,9 +29,9 @@ function Filter({filter}) {
   const onToggleStatus = (val) =>{
     setFilterstatus(filterstatus.map(element => {
       if(element.name === val.name){
-        element.active =true
+        element.active = true
       }else{
-        element.active =false
+        element.active = false
       }
       return element;
     }))
@@ -40,7 +40,7 @@ function Filter({filter}) {
   return (
     <div className="panel-tabs">
       {filterstatus.map(element => 
-        <a className={element.active ? "is-active" :""} onClick={() => {onToggleStatus(element);filter(element.name)}}>{element.name}</a>  
+        <a key={element.name} className={element.active ? "is-active" :""} onClick={() => {onToggleStatus(element);filter(element.name)}}>{element.name}</a>  
       )}
     </div>
   );
