@@ -16,27 +16,47 @@ import Filter from './Filter';
 import useStorage from '../hooks/storage';
 
 /* ライブラリ */
-import {getKey} from "../lib/util";
+import { getKey } from "../lib/util";
 
 function Todo() {
   const [items, putItems] = React.useState([
-      /* テストコード 開始 */
+    /* テストコード 開始 */
     { key: getKey(), text: '日本語の宿題', done: false },
     { key: getKey(), text: 'reactを勉強する', done: false },
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
 
+  const [newTodo, setNewTodo] = React.useState("")
+
+  const onChangeHandleAfterclick = (key) => {
+    const itemAfterHandle = items.map(e => {
+      if (e.key === key) {
+        e.done = !e.done
+      }
+      return e
+    })
+
+    putItems(itemAfterHandle)
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
+      <div>
+        <input class="input" type="text" onKeyDown={e => {
+          if (e.key === "Enter" && newTodo !== "") {
+            const valueNeedInsert = { key: getKey(), text: newTodo, done: false }
+            putItems([...items, valueNeedInsert])
+            setNewTodo("")
+          }
+        }} onChange={e => setNewTodo(e.target.value)} value={newTodo} />
+
+      </div>
       {items.map(item => (
-        <label className="panel-block">
-            <input type="checkbox" />
-            {item.text}
-        </label>
+        <TodoItem item={item} onClick={onChangeHandleAfterclick} />
       ))}
       <div className="panel-block">
         {items.length} items
