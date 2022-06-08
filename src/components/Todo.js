@@ -21,11 +21,19 @@ import {getKey} from "../lib/util";
 function Todo() {
   const [items, putItems] = React.useState([
       /* テストコード 開始 */
-    { key: getKey(), text: '日本語の宿題', done: false },
+    { key: getKey(), text: '日本語の宿題', done: true },
     { key: getKey(), text: 'reactを勉強する', done: false },
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
+
+  const [tab, setTab] = useState('ALL')
+
+  const filteredItems = items.filter( item => {
+    if (tab === 'ALL') return true;
+    if (tab === 'DOING') return !item.done;
+    if (tab === 'DONE') return item.done;
+  });
 
   const addTask = (text) => {
     const newTask = {
@@ -36,20 +44,32 @@ function Todo() {
     putItems([...items, newTask])
   }
 
+  const selectTab = value => {
+    setTab(value)
+  }
+
+  const completeTodo = (key) => {
+    const newItems= [...items];
+    newItems[key].done = !newItems[key].done;
+    putItems(newItems);
+  };
 
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
-      {items.map(item => (
+      <Filter value={tab} changeTab={selectTab} />
+      {filteredItems.map((item, index) => (
         <TodoItem 
         key={item.key}
         item={item}
+        index={index}
+        completeTodo={completeTodo}
       />
       ))}
       <div className="panel-block">
-        {items.length} items
+      {filteredItems.length} items
       </div>
     </div>
   );
