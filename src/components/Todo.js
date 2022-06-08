@@ -27,6 +27,16 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const addTask = (text) => {
+    const newTask = {
+      key : getKey(),
+      text : text,
+      done: false
+    }
+    putItems([...items, newTask])
+  }
+
+
   return (
     <div className="panel">
       <div className="panel-heading">
