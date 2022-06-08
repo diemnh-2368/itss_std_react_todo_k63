@@ -1,14 +1,25 @@
 /* 
   【TodoItemコンポーネント】
-　・Todoアイテムを表示する
-　・チェックボックスにチェックが入っているか管理する
-　・チェックボックスにチェックが入っているかアイテムをグレーアウトする
+ ・Todoアイテムを表示する
+ ・チェックボックスにチェックが入っているか管理する
+ ・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
-function TodoItem( {item} ) {
+import { useState } from 'react';
+
+function TodoItem({ item }) {
+  const [checked, setChecked] = useState(item.done);
+  const handleChange = () => {
+    setChecked(!checked)
+  }
+
   return (
     <label className="panel-block">
-            <input type="checkbox" />
-            {item.text}
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={handleChange}
+      />
+      <span class={checked && "has-text-grey-light"}>{item.text}</span>
     </label>
   );
 }
