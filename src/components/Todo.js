@@ -13,8 +13,9 @@ import Filter from './Filter';
 import useStorage from '../hooks/storage';
 /* ライブラリ */
 import {getKey} from "../lib/util";
+
 function Todo() {
-   const [items, putItems, clearItems] = useStorage();
+  const [items, putItems, clearItems] = useStorage();
   // const [items, putItems] = React.useState([
   //     /* テストコード 開始 */
   //   { key: getKey(), text: '日本語の宿題', done: false },
@@ -30,7 +31,7 @@ function Todo() {
     if (filter === 'TODO') return !item.done;
     if (filter === 'DONE') return item.done;
   });
-  
+
   const handleCheck = checked => {
     const newItems = items.map(item => {
       if (item.key === checked.key) {
@@ -40,13 +41,14 @@ function Todo() {
     });
     putItems(newItems);
   };
-
+  
   const handleAdd = text => {
     putItems([...items, { key: getKey(), text, done: false }]);
   };
-const handleFilterChange = value => setFilter(value);
+  
+  const handleFilterChange = value => setFilter(value);
   return (
-      <div className="panel">
+    <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
