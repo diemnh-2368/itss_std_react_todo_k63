@@ -11,6 +11,7 @@ import React, { useState } from 'react'
 import TodoItem from './TodoItem'
 import Input from './Input'
 import Filter from './Filter'
+import TabTodo from './TabTodo'
 
 /* カスタムフック */
 import useStorage from '../hooks/storage'
@@ -47,6 +48,7 @@ function Todo() {
   return (
     <div className="panel">
       <div className="panel-heading">ITSS ToDoアプリ</div>
+      <TabTodo />
       <input
         type="text"
         value={title}
