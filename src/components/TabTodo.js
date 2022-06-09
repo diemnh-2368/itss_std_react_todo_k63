@@ -6,19 +6,16 @@ import React from 'react'
 */
 function TabTodo({ tab, setTab }) {
   return (
-    <div class="tabs">
+    <div class="tabs is-centered">
       <ul>
         <li className={tab === 'all' ? 'is-active' : ''} onClick={() => setTab('all')}>
-          <a></a>
+          <a>全て</a>
         </li>
-        <li>
-          <a>Music</a>
+        <li className={tab === 'notyet' ? 'is-active' : ''} onClick={() => setTab('notyet')}>
+          <a>未完了</a>
         </li>
-        <li>
-          <a>Videos</a>
-        </li>
-        <li>
-          <a>Documents</a>
+        <li className={tab === 'done' ? 'is-active' : ''} onClick={() => setTab('done')}>
+          <a>完了済み</a>
         </li>
       </ul>
     </div>
