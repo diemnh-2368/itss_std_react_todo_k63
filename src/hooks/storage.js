@@ -1,33 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 /* 
   【Storageフック】
-　・TodoをlocalStorageを使って保存する
-　・以下機能をサポートする
-　  - localstrageに保存されているすべてのTodoの読み出し機能
-　  - Todoをlocalstrageに保存する
-　  - localstrageにあるTodoを削除する
+ ・TodoをlocalStorageを使って保存する
+ ・以下機能をサポートする
+   - localstrageに保存されているすべてのTodoの読み出し機能
+   - Todoをlocalstrageに保存する
+   - localstrageにあるTodoを削除する
 */
 
-const STORAGE_KEY = 'itss-todo';
+const STORAGE_KEY = 'itss-todo'
 
 function useStorage() {
-  const [items, setItems] = useState([]);
-　
-　/* 副作用を使う */
-  useEffect(() => {
-    
-  }, []);
+  const [items, setItems] = useState([])
 
-  const putItems = items => {
-    
-  };
+  /* 副作用を使う */
+  useEffect(() => {
+    const itemsFromStorage = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    if (itemsFromStorage) {
+      setItems(itemsFromStorage)
+    } else setItems([])
+  }, [])
+
+  const putItems = (items) => {
+    setItems(items)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+  }
 
   const clearItems = () => {
-    
-  };
+    localStorage.removeItem(STORAGE_KEY)
+    setItems([])
+  }
 
-  return [items, putItems, clearItems];
+  return [items, putItems, clearItems]
 }
 
-export default useStorage;
+export default useStorage
