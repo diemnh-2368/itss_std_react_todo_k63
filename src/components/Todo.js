@@ -15,31 +15,33 @@ import Filter from './Filter';
 /* カスタムフック */
 import useStorage from '../hooks/storage';
 
+import useFbStorage from '../hooks/fbstorage';
+
 /* ライブラリ */
 import {getKey} from "../lib/util";
 
 
 function Todo() {
-  const [items,putItems,clearItems] = useStorage();
+  const [items, addItem, updateItem, clearItems] = useFbStorage();
   console.log(items)
 
   const [itemsfilter,setItemsfilter] = useState(items)
   
   const [check,setCheck] = useState("すべて")
 
-  const handleDone = (key) =>{
-    const newItems = items.map(item => {
-      if(item.key === key){
-        item.done = !item.done
-      }
-      return item
-    })
+  const handleDone = (checked) =>{
+    // const newItems = items.map(item => {
+    //   if(item.key === key){
+    //     item.done = !item.done
+    //   }
+    //   return item
+    // })
 
-    putItems(newItems);
+    updateItem(checked);
   }
 
   const addTodo = (item) =>{
-    putItems([...items,item])
+    addItem(item)
   }
 
 
