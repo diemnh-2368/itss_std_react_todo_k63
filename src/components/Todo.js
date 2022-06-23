@@ -57,9 +57,11 @@ function Todo() {
 
 
   return (
-    <div className="panel">
-      <div className="panel-heading">
-        ITSS ToDoアプリ
+    <div className="panel ">
+      <div className="panel-heading  has-background-danger">
+        
+        <span className='has-text-white'>ITSS ToDoアプリ</span>
+  
       </div>
       <Input addTodo={addTodo}/>
       <Filter filter={setCheck}/>
