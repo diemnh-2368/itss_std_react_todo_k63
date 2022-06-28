@@ -10,8 +10,10 @@ function Upload({ userImage, onSletctedImage }) {
   const handleImage = async event => {
     const image = event.target.files[0];
     const imageUrl = await uploadImage(image);
+    console.log(image)
     onSletctedImage(imageUrl);
     setImageUrl(imageUrl);
+    setIsModal(!isModal)
   };
 
   const handleClick = () => {

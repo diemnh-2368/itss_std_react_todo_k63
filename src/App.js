@@ -64,7 +64,7 @@ function App() {
       <div>
         {user && <Todo />}
       </div>
-    </div>
+    </div> 
   );
 }
 

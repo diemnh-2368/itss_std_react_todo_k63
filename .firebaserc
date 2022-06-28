@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "todos-c4dee"
-  }
+    "default": "todos-fedfa",
+    "staging": "todos-fedfa"
+  },
+  "targets": {}
 }

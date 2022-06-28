@@ -1,15 +1,27 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/compat/storage'
+import { getStorage } from "firebase/storage";
+
+// const firebaseConfig = {
+//     apiKey: "AIzaSyBYT6BuO6UKkgTw6RdHQrkeRRHJEWB8BVE",
+//     authDomain: "todos-c4dee.firebaseapp.com",
+//     projectId: "todos-c4dee",
+//     storageBucket: "todos-c4dee.appspot.com",
+//     messagingSenderId: "450246456829",
+//     appId: "1:450246456829:web:6005daa376247e2dd79594",
+//     measurementId: "G-RT9PQZ1CPC"
+// };
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBYT6BuO6UKkgTw6RdHQrkeRRHJEWB8BVE",
-    authDomain: "todos-c4dee.firebaseapp.com",
-    projectId: "todos-c4dee",
-    storageBucket: "todos-c4dee.appspot.com",
-    messagingSenderId: "450246456829",
-    appId: "1:450246456829:web:6005daa376247e2dd79594",
-    measurementId: "G-RT9PQZ1CPC"
+  apiKey: "AIzaSyARYrESWGNV2NTku8skj4hcSGoMr_bU30Q",
+  authDomain: "todos-fedfa.firebaseapp.com",
+  projectId: "todos-fedfa",
+  storageBucket: "todos-fedfa.appspot.com",
+  messagingSenderId: "856904186710",
+  appId: "1:856904186710:web:94c1d9ffe0c15b0aeeb4f7",
+  measurementId: "G-4NFXZ1VZN3"
 };
 
 
@@ -17,6 +29,7 @@ firebase.initializeApp(firebaseConfig);
 
 
 export const auth = firebase.auth();
+export const storage = getStorage(firebase.initializeApp(firebaseConfig));
 export default firebase;
 
 export const getFirebaseItems = async () => {
@@ -98,6 +111,7 @@ export const updateUser = async (user, image) => {
 
 export const uploadImage = async (image) => {
   const ref = firebase.storage().ref().child(`/images/${image.name}`);
+  
   let downloadUrl = "";
   try {
     await ref.put(image);
