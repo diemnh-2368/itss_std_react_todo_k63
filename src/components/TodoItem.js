@@ -4,9 +4,15 @@
 　・チェックボックスにチェックが入っているか管理する
 　・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
-function TodoItem(  ) {
+const handlerClick = (e) => {
+  e.target.classList.toggle('has-text-gray-light')
+}
+
+function TodoItem({item}) {
   return (
-    <label className="panel-block">
+    <label className="panel-block" onClick={(e)=>handlerClick(e)}>
+      <input type="checkbox" />
+      {item.text}
     </label>
   );
 }
