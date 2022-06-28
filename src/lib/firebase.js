@@ -2,7 +2,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage'
-import { getStorage } from "firebase/storage";
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyBYT6BuO6UKkgTw6RdHQrkeRRHJEWB8BVE",
@@ -29,7 +28,6 @@ firebase.initializeApp(firebaseConfig);
 
 
 export const auth = firebase.auth();
-export const storage = getStorage(firebase.initializeApp(firebaseConfig));
 export default firebase;
 
 export const getFirebaseItems = async () => {
